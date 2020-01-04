@@ -9,11 +9,8 @@ tools to interact with databases, esp. in the cloud
 [![License](https://img.shields.io/npm/l/cli-db.svg)](https://github.com/cyrfer/cli-db/blob/master/package.json)
 
 <!-- toc -->
-- [cli-db](#cli-db)
-- [Usage](#usage)
-- [Commands](#commands)
-  - [cli-db mongo](#cli-db-mongo)
-  - [cli-db help [COMMAND]](#cli-db-help-command)
+* [Usage](#usage)
+* [Commands](#commands)
 <!-- tocstop -->
 # Usage
 <!-- usage -->
@@ -22,7 +19,7 @@ $ npm install -g cli-db
 $ cli-db COMMAND
 running command...
 $ cli-db (-v|--version|version)
-cli-db/0.1.0 darwin-x64 node-v12.3.1
+cli-db/0.1.1 darwin-x64 node-v12.3.1
 $ cli-db --help [COMMAND]
 USAGE
   $ cli-db COMMAND
@@ -31,81 +28,8 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-- [cli-db](#cli-db)
-- [Usage](#usage)
-- [Commands](#commands)
-  - [cli-db mongo](#cli-db-mongo)
-  - [cli-db help [COMMAND]](#cli-db-help-command)
-
-## `cli-db mongo`
-
-Interact with MongoDB
-
-```bash
-USAGE
-  $ cli-db mongo -h
-
-OPTIONS
-  -b, --db=db                      (required) the mongo database name
-  -c, --collection=collection      (required) the mongo collection name
-  -d, --data=data                  the data for the query
-  -f, --filter=filter              (required) the json filter string
-  -h, --help                       show CLI help
-  -i, --stdin
-  -l, --awsProfile=awsProfile      aws profile containing secrets
-  -m, --method=method              (required) the mongo method
-  -o, --options=options            [default: {}] the json operations string
-  -p, --projection=projection      [default: {}] the json projection string
-  -r, --awsRegion=awsRegion        aws region containing secrets
-  -s, --awsSecretUrl=awsSecretUrl  aws secret containing mongo connection string
-  -u, --url=url                    mongo connection string (URL)
-
-DESCRIPTION
-  Specify reads, writes, aggregations, with AWS integration to support secret connection strings
-```
-
-
-EXAMPLES - `UPSERT`
-
-```bash
-  cli-db mongo \
-  -u mongodb://localhost:27018 \
-  -b test \
-  -c todo \
-  -m updateOne \
-  -f '{"id": "123"}' \
-  -d '{"$set": {"id": "123", "title": "buy toothpaste"}}' \
-  -o '{"upsert": true}'
-```
-
-EXAMPLES - `READ`
-
-```bash
-  cli-db mongo \
-  -u mongodb://localhost:27018 \
-  -b test \
-  -c todo \
-  -m findOne \
-  -f '{"id": "123"}'
-```
-
-EXAMPLES - `READ connection stored in AWS Secrets`
-
-```bash
-  cli-db mongo \
-  -l <your-aws-profile-name-here> \
-  -s test-mongo-local \
-  -r us-west-2 \
-  -b test \
-  -c todo \
-  -m findOne \
-  -f '{"id": "123"}'
-```
-
-
-
-
-_See code: [src/commands/mongo.js](https://github.com/cyrfer/cli-db/blob/v0.1.0/src/commands/mongo.js)_
+* [`cli-db help [COMMAND]`](#cli-db-help-command)
+* [`cli-db mongo`](#cli-db-mongo)
 
 ## `cli-db help [COMMAND]`
 
@@ -123,4 +47,34 @@ OPTIONS
 ```
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.3/src/commands/help.ts)_
+
+## `cli-db mongo`
+
+Describe the command here
+
+```
+USAGE
+  $ cli-db mongo
+
+OPTIONS
+  -b, --db=db                      (required) the mongo database name
+  -c, --collection=collection      (required) the mongo collection name
+  -d, --data=data                  the data for the query
+  -f, --filter=filter              (required) the json filter string
+  -h, --help                       show CLI help
+  -i, --stdin
+  -l, --awsProfile=awsProfile      aws profile containing secrets
+  -m, --method=method              (required) the mongo method
+  -o, --options=options            [default: {}] the json operations string
+  -p, --projection=projection      [default: {}] the json projection string
+  -r, --awsRegion=awsRegion        aws region containing secrets
+  -s, --awsSecretUrl=awsSecretUrl  aws secret containing mongo connection string
+  -u, --url=url                    mongo connection string (URL)
+
+DESCRIPTION
+  ...
+  Extra documentation goes here
+```
+
+_See code: [src/commands/mongo.js](https://github.com/cyrfer/cli-db/blob/v0.1.1/src/commands/mongo.js)_
 <!-- commandsstop -->

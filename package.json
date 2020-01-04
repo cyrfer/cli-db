@@ -1,7 +1,7 @@
 {
   "name": "cli-db",
   "description": "tools to interact with databases, esp. in the cloud",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "Grant, John K. <cyrfer@gmail.com>",
   "bin": {
     "cli-db": "./bin/run"
