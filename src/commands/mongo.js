@@ -1,6 +1,8 @@
 const {Command, flags} = require('@oclif/command')
 const {setupDataStore, shutdownDataStore} = require('../db/mongo')
 const AWS = require('aws-sdk')
+const fs = require('fs')
+const {assignByKey} = require('deepdown')
 
 const parseReducer = ctx => (accum, flag) => {
   if (!ctx[flag]) {
@@ -15,22 +17,39 @@ const parseReducer = ctx => (accum, flag) => {
 }
 
 const methodArgs = {
-  updateOne: ['filter', 'data', 'options'],
-  findOne: ['filter', 'projection'],
+  updateOne: ['query', 'data', 'options'],
+  findOne: ['query', 'projection'],
 }
 
 class MongoCommand extends Command {
   async run() {
     const {flags} = this.parse(MongoCommand)
 
+    // eslint-disable-next-line no-warning-comments
+    // TODO: shell support might make this unnecessary
+    let file
+    if (flags.file) {
+      const buffer = fs.readFileSync(flags.file)
+      file = buffer.toString()
+      try {
+        file = JSON.parse(file)
+      } catch (error) {
+        // no change, no need to log
+      }
+    }
+
+    const parsed = methodArgs[flags.method].reduce(parseReducer(flags), {})
+    if (file) {
+      assignByKey(parsed, ['data', ...(flags.input ? flags.input.split('.') : [])], file)
+    }
+    const mArgs = methodArgs[flags.method].map(a => parsed[a])
+
     const credentials = new AWS.SharedIniFileCredentials({profile: flags.awsProfile})
     const secrets = flags.awsRegion && new AWS.SecretsManager({region: flags.awsRegion, credentials})
     const client = await setupDataStore({url: flags.url, secretUrl: flags.awsSecretUrl}, {secrets})
 
-    const collection = client.db(flags.db).collection(flags.collection)
-    const parsed = methodArgs[flags.method].reduce(parseReducer(flags), {})
-    const mArgs = methodArgs[flags.method].map(a => parsed[a])
     // this.log(`db.${flags.collection}.${flags.method}( ${JSON.stringify(mArgs)} ) on [${flags.url || flags.awsSecretUrl}/${flags.db}/${flags.collection}],`)
+    const collection = client.db(flags.db).collection(flags.collection)
     const result = await collection[flags.method](...mArgs)
     this.log(JSON.stringify(result))
     shutdownDataStore()
@@ -65,15 +84,18 @@ MongoCommand.flags = {
     required: false,
   }),
 
-  filter: flags.string({
+  file: flags.string({
     char: 'f',
-    description: 'the json filter string',
-    required: true,
+    description: 'the file path with content for the data',
+    required: false,
+    dependsOn: ['data', 'input'],
   }),
 
-  // flag with no value (-f, --force)
-  stdin: flags.boolean({
+  input: flags.string({
     char: 'i',
+    description: 'the path to assign input for the data query',
+    required: false,
+    dependsOn: ['data'],
   }),
 
   awsProfile: flags.string({
@@ -81,7 +103,6 @@ MongoCommand.flags = {
     description: 'aws profile containing secrets',
     env: 'AWS_PROFILE',
     required: false,
-    dependsOn: ['awsSecretUrl'],
   }),
 
   method: flags.string({
@@ -92,7 +113,7 @@ MongoCommand.flags = {
 
   options: flags.string({
     char: 'o',
-    description: 'the json operations string',
+    description: 'the json string for mongo query options',
     required: false,
     default: '{}',
   }),
@@ -104,12 +125,17 @@ MongoCommand.flags = {
     default: '{}',
   }),
 
+  query: flags.string({
+    char: 'q',
+    description: 'the json query filter string',
+    required: true,
+  }),
+
   awsRegion: flags.string({
     char: 'r',
     description: 'aws region containing secrets',
     env: 'AWS_SECRET_MONGO_CONNECTION_URL',
     required: false,
-    dependsOn: ['awsSecretUrl'],
     exclusive: ['url'],
   }),
 
@@ -118,7 +144,7 @@ MongoCommand.flags = {
     description: 'aws secret containing mongo connection string',
     env: 'AWS_SECRET_MONGO_CONNECTION_URL',
     required: false,
-    dependsOn: ['awsRegion'],
+    dependsOn: ['awsRegion', 'awsProfile'],
     exclusive: ['url'],
   }),
 

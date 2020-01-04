@@ -14,7 +14,7 @@ describe('mongo', () => {
     '-b', 'test',
     '-c', 'todo',
     '-m', 'updateOne',
-    '-f', '{"id": "123"}',
+    '-q', '{"id": "123"}',
     '-d', '{"$set": {"id": "123", "title": "buy toothpaste"}}',
     '-o', '{"upsert": true}',
   ])
@@ -29,8 +29,26 @@ describe('mongo', () => {
     '-u', 'mongodb://localhost:27018',
     '-b', 'test',
     '-c', 'todo',
+    '-m', 'updateOne',
+    '-q', '{"id": "123"}',
+    '-d', '{"$set": "placeholder"}',
+    '-i', '$set',
+    '-f', './test/data/input.json',
+    '-o', '{"upsert": true}',
+  ])
+  .it('mongo upsert from input file', ctx => {
+    expect(ctx.stdout).to.contain('nModified')
+  })
+
+  test
+  .stdout()
+  .command([
+    'mongo',
+    '-u', 'mongodb://localhost:27018',
+    '-b', 'test',
+    '-c', 'todo',
     '-m', 'findOne',
-    '-f', '{"id": "123"}',
+    '-q', '{"id": "123"}',
   ])
   .it('mongo read by id', ctx => {
     expect(ctx.stdout).to.contain('toothpaste')
@@ -46,7 +64,7 @@ describe('mongo', () => {
     '-b', 'test',
     '-c', 'todo',
     '-m', 'findOne',
-    '-f', '{"id": "123"}',
+    '-q', '{"id": "123"}',
   ])
   .it('mongo read by id from secret url', ctx => {
     expect(ctx.stdout).to.contain('toothpaste')
