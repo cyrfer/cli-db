@@ -19,7 +19,7 @@ $ npm install -g cli-db
 $ cli-db COMMAND
 running command...
 $ cli-db (-v|--version|version)
-cli-db/0.1.1 darwin-x64 node-v12.3.1
+cli-db/0.2.0 darwin-x64 node-v12.3.1
 $ cli-db --help [COMMAND]
 USAGE
   $ cli-db COMMAND
@@ -60,13 +60,14 @@ OPTIONS
   -b, --db=db                      (required) the mongo database name
   -c, --collection=collection      (required) the mongo collection name
   -d, --data=data                  the data for the query
-  -f, --filter=filter              (required) the json filter string
+  -f, --file=file                  the file path with content for the data
   -h, --help                       show CLI help
-  -i, --stdin
+  -i, --input=input                the path to assign input for the data query
   -l, --awsProfile=awsProfile      aws profile containing secrets
   -m, --method=method              (required) the mongo method
-  -o, --options=options            [default: {}] the json operations string
+  -o, --options=options            [default: {}] the json string for mongo query options
   -p, --projection=projection      [default: {}] the json projection string
+  -q, --query=query                (required) the json query filter string
   -r, --awsRegion=awsRegion        aws region containing secrets
   -s, --awsSecretUrl=awsSecretUrl  aws secret containing mongo connection string
   -u, --url=url                    mongo connection string (URL)
@@ -76,5 +77,5 @@ DESCRIPTION
   Extra documentation goes here
 ```
 
-_See code: [src/commands/mongo.js](https://github.com/cyrfer/cli-db/blob/v0.1.1/src/commands/mongo.js)_
+_See code: [src/commands/mongo.js](https://github.com/cyrfer/cli-db/blob/v0.2.0/src/commands/mongo.js)_
 <!-- commandsstop -->
