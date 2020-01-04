@@ -19,7 +19,7 @@ $ npm install -g cli-db
 $ cli-db COMMAND
 running command...
 $ cli-db (-v|--version|version)
-cli-db/0.3.0 darwin-x64 node-v12.3.1
+cli-db/0.3.1 darwin-x64 node-v12.3.1
 $ cli-db --help [COMMAND]
 USAGE
   $ cli-db COMMAND
@@ -77,5 +77,5 @@ DESCRIPTION
   Extra documentation goes here
 ```
 
-_See code: [src/commands/mongo.js](https://github.com/cyrfer/cli-db/blob/v0.3.0/src/commands/mongo.js)_
+_See code: [src/commands/mongo.js](https://github.com/cyrfer/cli-db/blob/v0.3.1/src/commands/mongo.js)_
 <!-- commandsstop -->
