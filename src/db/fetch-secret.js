@@ -17,14 +17,16 @@ exports.fetchParameter = (paramName, ssm) => {
 
 exports.fetchSecret = (secretName, secrets) => {
   return new Promise((resolve, reject) => {
-    const params = {
-      SecretId: secretName,
-    }
-    secrets.getSecretValue(params, (err, data) => {
+    secrets.getSecretValue({SecretId: secretName}, (err, data) => {
       if (err) {
-        return reject(new Error('error calling getSecret: ' + JSON.stringify(err)))
+        return reject(new Error(`getSecretValue(${secretName}): ${JSON.stringify(err)}`))
       }
-      resolve(data)
+      if ('SecretString' in data) {
+        resolve(data.SecretString)
+      } else {
+        const buff = Buffer.from(data.SecretBinary, 'base64')
+        resolve(buff.toString('ascii'))
+      }
     })
   })
 }

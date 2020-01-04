@@ -1,5 +1,6 @@
 const {Command, flags} = require('@oclif/command')
 const {setupDataStore, shutdownDataStore} = require('../db/mongo')
+const AWS = require('aws-sdk')
 
 const parseReducer = ctx => (accum, flag) => {
   if (!ctx[flag]) {
@@ -22,7 +23,9 @@ class MongoCommand extends Command {
   async run() {
     const {flags} = this.parse(MongoCommand)
 
-    const client = await setupDataStore({url: flags.url, secretUrl: flags.awsSecretUrl})
+    const credentials = new AWS.SharedIniFileCredentials({profile: flags.awsProfile})
+    const secrets = flags.awsRegion && new AWS.SecretsManager({region: flags.awsRegion, credentials})
+    const client = await setupDataStore({url: flags.url, secretUrl: flags.awsSecretUrl}, {secrets})
 
     const collection = client.db(flags.db).collection(flags.collection)
     const parsed = methodArgs[flags.method].reduce(parseReducer(flags), {})
@@ -41,13 +44,6 @@ Extra documentation goes here
 
 MongoCommand.flags = {
   help: flags.help({char: 'h'}),
-
-  awsSecretUrl: flags.string({
-    char: 'a',
-    description: 'aws secret containing mongo connection string',
-    env: 'AWS_SECRET_MONGO_CONNECTION_URL',
-    exclusive: ['url'],
-  }),
 
   db: flags.string({
     char: 'b',
@@ -80,6 +76,14 @@ MongoCommand.flags = {
     char: 'i',
   }),
 
+  awsProfile: flags.string({
+    char: 'l',
+    description: 'aws profile containing secrets',
+    env: 'AWS_PROFILE',
+    required: false,
+    dependsOn: ['awsSecretUrl'],
+  }),
+
   method: flags.string({
     char: 'm',
     description: 'the mongo method',
@@ -100,11 +104,29 @@ MongoCommand.flags = {
     default: '{}',
   }),
 
+  awsRegion: flags.string({
+    char: 'r',
+    description: 'aws region containing secrets',
+    env: 'AWS_SECRET_MONGO_CONNECTION_URL',
+    required: false,
+    dependsOn: ['awsSecretUrl'],
+    exclusive: ['url'],
+  }),
+
+  awsSecretUrl: flags.string({
+    char: 's',
+    description: 'aws secret containing mongo connection string',
+    env: 'AWS_SECRET_MONGO_CONNECTION_URL',
+    required: false,
+    dependsOn: ['awsRegion'],
+    exclusive: ['url'],
+  }),
+
   url: flags.string({
     char: 'u',
     description: 'mongo connection string (URL)',
     env: 'MONGO_CONNECTION_URL',
-    required: true,
+    required: false,
     exclusive: ['aws-secret-url'],
   }),
 }

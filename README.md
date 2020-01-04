@@ -1,62 +1,64 @@
-db-utils
+cli-db
 ========
 
 tools to interact with databases, esp. in the cloud
 
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
-[![Version](https://img.shields.io/npm/v/db-utils.svg)](https://npmjs.org/package/db-utils)
-[![Downloads/week](https://img.shields.io/npm/dw/db-utils.svg)](https://npmjs.org/package/db-utils)
-[![License](https://img.shields.io/npm/l/db-utils.svg)](https://github.com/cyrfer/db-utils/blob/master/package.json)
+[![Version](https://img.shields.io/npm/v/cli-db.svg)](https://npmjs.org/package/cli-db)
+[![Downloads/week](https://img.shields.io/npm/dw/cli-db.svg)](https://npmjs.org/package/cli-db)
+[![License](https://img.shields.io/npm/l/cli-db.svg)](https://github.com/cyrfer/cli-db/blob/master/package.json)
 
 <!-- toc -->
-- [db-utils](#db-utils)
+- [cli-db](#cli-db)
 - [Usage](#usage)
 - [Commands](#commands)
-  - [db-utils mongo](#db-utils-mongo)
-  - [db-utils help [COMMAND]](#db-utils-help-command)
+  - [cli-db mongo](#cli-db-mongo)
+  - [cli-db help [COMMAND]](#cli-db-help-command)
 <!-- tocstop -->
 # Usage
 <!-- usage -->
 ```sh-session
-$ npm install -g db-utils
-$ db-utils COMMAND
+$ npm install -g cli-db
+$ cli-db COMMAND
 running command...
-$ db-utils (-v|--version|version)
-db-utils/0.1.0 darwin-x64 node-v12.3.1
-$ db-utils --help [COMMAND]
+$ cli-db (-v|--version|version)
+cli-db/0.1.0 darwin-x64 node-v12.3.1
+$ cli-db --help [COMMAND]
 USAGE
-  $ db-utils COMMAND
+  $ cli-db COMMAND
 ...
 ```
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-- [db-utils](#db-utils)
+- [cli-db](#cli-db)
 - [Usage](#usage)
 - [Commands](#commands)
-  - [db-utils mongo](#db-utils-mongo)
-  - [db-utils help [COMMAND]](#db-utils-help-command)
+  - [cli-db mongo](#cli-db-mongo)
+  - [cli-db help [COMMAND]](#cli-db-help-command)
 
-## `db-utils mongo`
+## `cli-db mongo`
 
 Interact with MongoDB
 
 ```bash
 USAGE
-  $ db-utils mongo -h
+  $ cli-db mongo -h
 
 OPTIONS
-  -a, --awsSecretUrl=awsSecretUrl  aws secret containing mongo connection string
   -b, --db=db                      (required) the mongo database name
   -c, --collection=collection      (required) the mongo collection name
-  -d, --data=data                  (required) the data for the query
+  -d, --data=data                  the data for the query
   -f, --filter=filter              (required) the json filter string
   -h, --help                       show CLI help
   -i, --stdin
+  -l, --awsProfile=awsProfile      aws profile containing secrets
   -m, --method=method              (required) the mongo method
   -o, --options=options            [default: {}] the json operations string
   -p, --projection=projection      [default: {}] the json projection string
-  -u, --url=url                    (required) mongo connection string (URL)
+  -r, --awsRegion=awsRegion        aws region containing secrets
+  -s, --awsSecretUrl=awsSecretUrl  aws secret containing mongo connection string
+  -u, --url=url                    mongo connection string (URL)
 
 DESCRIPTION
   Specify reads, writes, aggregations, with AWS integration to support secret connection strings
@@ -66,7 +68,7 @@ DESCRIPTION
 EXAMPLES - `UPSERT`
 
 ```bash
-  db-utils mongo \
+  cli-db mongo \
   -u mongodb://localhost:27018 \
   -b test \
   -c todo \
@@ -79,8 +81,21 @@ EXAMPLES - `UPSERT`
 EXAMPLES - `READ`
 
 ```bash
-  db-utils mongo \
+  cli-db mongo \
   -u mongodb://localhost:27018 \
+  -b test \
+  -c todo \
+  -m findOne \
+  -f '{"id": "123"}'
+```
+
+EXAMPLES - `READ connection stored in AWS Secrets`
+
+```bash
+  cli-db mongo \
+  -l <your-aws-profile-name-here> \
+  -s test-mongo-local \
+  -r us-west-2 \
   -b test \
   -c todo \
   -m findOne \
@@ -90,15 +105,15 @@ EXAMPLES - `READ`
 
 
 
-_See code: [src/commands/mongo.js](https://github.com/cyrfer/db-utils/blob/v0.1.0/src/commands/mongo.js)_
+_See code: [src/commands/mongo.js](https://github.com/cyrfer/cli-db/blob/v0.1.0/src/commands/mongo.js)_
 
-## `db-utils help [COMMAND]`
+## `cli-db help [COMMAND]`
 
-display help for db-utils
+display help for cli-db
 
 ```
 USAGE
-  $ db-utils help [COMMAND]
+  $ cli-db help [COMMAND]
 
 ARGUMENTS
   COMMAND  command to show help for

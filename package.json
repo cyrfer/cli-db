@@ -1,16 +1,17 @@
 {
-  "name": "db-utils",
+  "name": "cli-db",
   "description": "tools to interact with databases, esp. in the cloud",
   "version": "0.1.0",
-  "author": "Grant, John K.",
+  "author": "Grant, John K. <cyrfer@gmail.com>",
   "bin": {
-    "db-utils": "./bin/run"
+    "cli-db": "./bin/run"
   },
-  "bugs": "https://github.com/cyrfer/db-utils/issues",
+  "bugs": "https://github.com/cyrfer/cli-db/issues",
   "dependencies": {
     "@oclif/command": "^1.5.19",
     "@oclif/config": "^1.13.3",
     "@oclif/plugin-help": "^2.2.3",
+    "aws-sdk": "^2.597.0",
     "mongodb": "^3.4.1"
   },
   "devDependencies": {
@@ -24,7 +25,7 @@
     "nyc": "^14.1.1"
   },
   "engines": {
-    "node": ">=8.0.0"
+    "node": ">=8.3.0"
   },
   "files": [
     "/bin",
@@ -32,7 +33,7 @@
     "/oclif.manifest.json",
     "/src"
   ],
-  "homepage": "https://github.com/cyrfer/db-utils",
+  "homepage": "https://github.com/cyrfer/cli-db",
   "keywords": [
     "oclif"
   ],
@@ -40,12 +41,12 @@
   "main": "src/index.js",
   "oclif": {
     "commands": "./src/commands",
-    "bin": "db-utils",
+    "bin": "cli-db",
     "plugins": [
       "@oclif/plugin-help"
     ]
   },
-  "repository": "cyrfer/db-utils",
+  "repository": "cyrfer/cli-db",
   "scripts": {
     "postpack": "rm -f oclif.manifest.json",
     "posttest": "eslint .",

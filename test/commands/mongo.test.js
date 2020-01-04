@@ -1,6 +1,10 @@
 /* eslint-disable array-element-newline */
 const {expect, test} = require('@oclif/test')
 
+const testConfig = {
+  awsProfile: process.env.AWS_PROFILE,
+}
+
 describe('mongo', () => {
   test
   .stdout()
@@ -29,6 +33,22 @@ describe('mongo', () => {
     '-f', '{"id": "123"}',
   ])
   .it('mongo read by id', ctx => {
+    expect(ctx.stdout).to.contain('toothpaste')
+  })
+
+  test
+  .stdout()
+  .command([
+    'mongo',
+    '-l', testConfig.awsProfile || 'your-aws-profile-name-here',
+    '-s', 'test-mongo-local',
+    '-r', 'us-west-2',
+    '-b', 'test',
+    '-c', 'todo',
+    '-m', 'findOne',
+    '-f', '{"id": "123"}',
+  ])
+  .it('mongo read by id from secret url', ctx => {
     expect(ctx.stdout).to.contain('toothpaste')
   })
 })

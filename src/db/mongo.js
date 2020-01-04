@@ -3,7 +3,7 @@ const {fetchSecret} = require('./fetch-secret')
 
 let cachedClient
 
-exports.setupDataStore = async (options, {ssm} = {}) => {
+exports.setupDataStore = async (options, {secrets} = {}) => {
   if (cachedClient) {
     // console.debug('mongo client is already cached')
     return Promise.resolve(cachedClient)
@@ -16,16 +16,11 @@ exports.setupDataStore = async (options, {ssm} = {}) => {
       // console.debug('mongo config missing secret for url')
       return Promise.reject(new Error('options have no connection url for mongodb'))
     }
-    try {
-      // console.debug('about to fetch secret')
-      const secretString = await fetchSecret(options.secretUrl, ssm)
-      // console.debug('about to parse secret')
-      url = `mongodb://${secretString}`
-    } catch (error) {
-      const message = `error using secret: ${JSON.stringify(error)}`
-      // console.error(message)
-      return Promise.reject(new Error(message))
-    }
+    // console.debug('about to fetch secret')
+    const secretString = await fetchSecret(options.secretUrl, secrets)
+    // console.debug('about to parse secret')
+    const parsed = JSON.parse(secretString)
+    url = `mongodb://${parsed.url}`
   }
   // console.debug('creating MongoClient')
   const client = new MongoClient(url, {useNewUrlParser: true, useUnifiedTopology: true})
