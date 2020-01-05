@@ -56,9 +56,33 @@ class MongoCommand extends Command {
   }
 }
 
-MongoCommand.description = `Describe the command here
-...
-Extra documentation goes here
+MongoCommand.description = `Interact with MongoDb
+Specify reads, writes, aggregations, with AWS integration to support secret connection strings
+----------------
+
+EXAMPLE - upsert
+
+cli-db mongo \\
+ -u 'mongodb://localhost:27018' \\
+ -b 'test' \\
+ -c 'todo' \\
+ -m 'updateOne' \\
+ -q '{"id": "123"}' \\
+ -d '{"$set": {"id": "123", "title": "buy toothpaste"}}' \\
+ -o '{"upsert": true}'
+
+----------------
+
+EXAMPLE - read from secret connection
+
+cli-db mongo \\
+ -l 'your-aws-profile-name-here' \\
+ -s 'test-mongo-local' \\
+ -r 'us-west-2' \\
+ -b 'test' \\
+ -c 'todo' \\
+ -m 'findOne' \\
+ -q '{"id": "123"}'
 `
 
 MongoCommand.flags = {

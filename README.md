@@ -19,7 +19,7 @@ $ npm install -g cli-db
 $ cli-db COMMAND
 running command...
 $ cli-db (-v|--version|version)
-cli-db/0.3.1 darwin-x64 node-v12.3.1
+cli-db/0.3.2 darwin-x64 node-v12.3.1
 $ cli-db --help [COMMAND]
 USAGE
   $ cli-db COMMAND
@@ -50,7 +50,7 @@ _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.3
 
 ## `cli-db mongo`
 
-Describe the command here
+Interact with MongoDb
 
 ```
 USAGE
@@ -73,9 +73,33 @@ OPTIONS
   -u, --url=url                    mongo connection string (URL)
 
 DESCRIPTION
-  ...
-  Extra documentation goes here
+  Specify reads, writes, aggregations, with AWS integration to support secret connection strings
+  ----------------
+
+  EXAMPLE - upsert
+
+  cli-db mongo \
+    -u 'mongodb://localhost:27018' \
+    -b 'test' \
+    -c 'todo' \
+    -m 'updateOne' \
+    -q '{"id": "123"}' \
+    -d '{"$set": {"id": "123", "title": "buy toothpaste"}}' \
+    -o '{"upsert": true}'
+
+  ----------------
+
+  EXAMPLE - read from secret connection
+
+  cli-db mongo \
+    -l 'your-aws-profile-name-here' \
+    -s 'test-mongo-local' \
+    -r 'us-west-2' \
+    -b 'test' \
+    -c 'todo' \
+    -m 'findOne' \
+    -q '{"id": "123"}'
 ```
 
-_See code: [src/commands/mongo.js](https://github.com/cyrfer/cli-db/blob/v0.3.1/src/commands/mongo.js)_
+_See code: [src/commands/mongo.js](https://github.com/cyrfer/cli-db/blob/v0.3.2/src/commands/mongo.js)_
 <!-- commandsstop -->
