@@ -9,11 +9,8 @@ tools to interact with databases, esp. in the cloud
 [![License](https://img.shields.io/npm/l/cli-db.svg)](https://github.com/cyrfer/cli-db/blob/master/package.json)
 
 <!-- toc -->
-- [cli-db](#cli-db)
-- [Usage](#usage)
-- [Commands](#commands)
-  - [cli-db mongo](#cli-db-mongo)
-  - [cli-db help [COMMAND]](#cli-db-help-command)
+* [Usage](#usage)
+* [Commands](#commands)
 <!-- tocstop -->
 # Usage
 <!-- usage -->
@@ -31,19 +28,33 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-- [cli-db](#cli-db)
-- [Usage](#usage)
-- [Commands](#commands)
-  - [cli-db mongo](#cli-db-mongo)
-  - [cli-db help [COMMAND]](#cli-db-help-command)
+* [`cli-db help [COMMAND]`](#cli-db-help-command)
+* [`cli-db mongo`](#cli-db-mongo)
+
+## `cli-db help [COMMAND]`
+
+display help for cli-db
+
+```
+USAGE
+  $ cli-db help [COMMAND]
+
+ARGUMENTS
+  COMMAND  command to show help for
+
+OPTIONS
+  --all  see all commands in CLI
+```
+
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.3/src/commands/help.ts)_
 
 ## `cli-db mongo`
 
-Interact with MongoDB
+Interact with MongoDb
 
-```bash
+```
 USAGE
-  $ cli-db mongo -h
+  $ cli-db mongo
 
 OPTIONS
   -b, --db=db                      (required) the mongo database name
@@ -62,65 +73,32 @@ OPTIONS
 
 DESCRIPTION
   Specify reads, writes, aggregations, with AWS integration to support secret connection strings
-```
+  ----------------
 
+  EXAMPLE - upsert
 
-EXAMPLES - `UPSERT`
-
-```bash
   cli-db mongo \
-  -u mongodb://localhost:27018 \
-  -b test \
-  -c todo \
-  -m updateOne \
-  -f '{"id": "123"}' \
-  -d '{"$set": {"id": "123", "title": "buy toothpaste"}}' \
-  -o '{"upsert": true}'
-```
+    -u 'mongodb://localhost:27018' \
+    -b 'test' \
+    -c 'todo' \
+    -m 'updateOne' \
+    -q '{"id": "123"}' \
+    -d '{"$set": {"id": "123", "title": "buy toothpaste"}}' \
+    -o '{"upsert": true}'
 
-EXAMPLES - `READ`
+  ----------------
 
-```bash
+  EXAMPLE - read from secret connection
+
   cli-db mongo \
-  -u mongodb://localhost:27018 \
-  -b test \
-  -c todo \
-  -m findOne \
-  -f '{"id": "123"}'
+    -l 'your-aws-profile-name-here' \
+    -s 'test-mongo-local' \
+    -r 'us-west-2' \
+    -b 'test' \
+    -c 'todo' \
+    -m 'findOne' \
+    -q '{"id": "123"}'
 ```
-
-EXAMPLES - `READ connection stored in AWS Secrets`
-
-```bash
-  cli-db mongo \
-  -l <your-aws-profile-name-here> \
-  -s test-mongo-local \
-  -r us-west-2 \
-  -b test \
-  -c todo \
-  -m findOne \
-  -f '{"id": "123"}'
-```
-
-
-
 
 _See code: [src/commands/mongo.js](https://github.com/cyrfer/cli-db/blob/v0.1.0/src/commands/mongo.js)_
-
-## `cli-db help [COMMAND]`
-
-display help for cli-db
-
-```
-USAGE
-  $ cli-db help [COMMAND]
-
-ARGUMENTS
-  COMMAND  command to show help for
-
-OPTIONS
-  --all  see all commands in CLI
-```
-
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.3/src/commands/help.ts)_
 <!-- commandsstop -->
