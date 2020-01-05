@@ -74,31 +74,30 @@ OPTIONS
 
 DESCRIPTION
   Specify reads, writes, aggregations, with AWS integration to support secret connection strings
-  ----------------
 
-  EXAMPLE - upsert
+EXAMPLES
 
-  cli-db mongo \
-    -u 'mongodb://localhost:27018' \
-    -b 'test' \
-    -c 'todo' \
-    -m 'updateOne' \
-    -q '{"id": "123"}' \
-    -d '{"$set": {"id": "123", "title": "buy toothpaste"}}' \
-    -o '{"upsert": true}'
+  UPSERT
 
-  ----------------
+     cli-db mongo \
+      -u 'mongodb://localhost:27018' \
+      -b 'test' \
+      -c 'todo' \
+      -m 'updateOne' \
+      -q '{"id": "123"}' \
+      -d '{"$set": {"id": "123", "title": "buy toothpaste"}}' \
+      -o '{"upsert": true}'
 
-  EXAMPLE - read from secret connection
+  READ (connection from AWS Secrets Manager)
 
-  cli-db mongo \
-    -l 'your-aws-profile-name-here' \
-    -s 'test-mongo-local' \
-    -r 'us-west-2' \
-    -b 'test' \
-    -c 'todo' \
-    -m 'findOne' \
-    -q '{"id": "123"}'
+     cli-db mongo \
+      -l 'your-aws-profile-name-here' \
+      -s 'test-mongo-local' \
+      -r 'us-west-2' \
+      -b 'test' \
+      -c 'todo' \
+      -m 'findOne' \
+      -q '{"id": "123"}'
 ```
 
 _See code: [src/commands/mongo.js](https://github.com/cyrfer/cli-db/blob/v0.3.3/src/commands/mongo.js)_
