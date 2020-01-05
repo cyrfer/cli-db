@@ -28,8 +28,39 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
+* [`cli-db ffprobe INPUT_FILE`](#cli-db-ffprobe-input_file)
 * [`cli-db help [COMMAND]`](#cli-db-help-command)
 * [`cli-db mongo`](#cli-db-mongo)
+
+## `cli-db ffprobe INPUT_FILE`
+
+Media utils - ffprobe
+
+```
+USAGE
+  $ cli-db ffprobe INPUT_FILE
+
+ARGUMENTS
+  INPUT_FILE  local path or URL to a file
+
+OPTIONS
+  -h, --help  show CLI help
+
+DESCRIPTION
+  Perform content tasks
+
+  Requires the 'ffmpeg' package for your OS:
+  - mac: brew install ffmpeg
+  - debian/ubuntu: apt install ffmpeg
+
+EXAMPLE
+
+  AFILE=s3://YOUR-BUCKET/YOUR-FILE.mp4
+  SECONDS=60
+  cli-db ffprobe $(aws s3 presign $AFILE --expires-in $SECONDS --profile YOUR-AWS-PROFILE) | jq '.'
+```
+
+_See code: [src/commands/ffprobe.js](https://github.com/cyrfer/cli-db/blob/v0.3.4/src/commands/ffprobe.js)_
 
 ## `cli-db help [COMMAND]`
 

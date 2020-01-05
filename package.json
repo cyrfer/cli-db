@@ -13,6 +13,7 @@
     "@oclif/plugin-help": "^2.2.3",
     "aws-sdk": "^2.597.0",
     "deepdown": "^1.0.7",
+    "fluent-ffmpeg": "^2.1.2",
     "mongodb": "^3.4.1"
   },
   "devDependencies": {
