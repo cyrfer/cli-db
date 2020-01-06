@@ -19,7 +19,7 @@ $ npm install -g cli-db
 $ cli-db COMMAND
 running command...
 $ cli-db (-v|--version|version)
-cli-db/0.3.5 darwin-x64 node-v12.3.1
+cli-db/0.3.6 darwin-x64 node-v12.3.1
 $ cli-db --help [COMMAND]
 USAGE
   $ cli-db COMMAND
@@ -60,7 +60,7 @@ EXAMPLE
   cli-db ffprobe $(aws s3 presign $AFILE --expires-in $SECONDS --profile YOUR-AWS-PROFILE) | jq '.'
 ```
 
-_See code: [src/commands/ffprobe.js](https://github.com/cyrfer/cli-db/blob/v0.3.5/src/commands/ffprobe.js)_
+_See code: [src/commands/ffprobe.js](https://github.com/cyrfer/cli-db/blob/v0.3.6/src/commands/ffprobe.js)_
 
 ## `cli-db help [COMMAND]`
 
@@ -131,5 +131,5 @@ EXAMPLES
       -q '{"id": "123"}'
 ```
 
-_See code: [src/commands/mongo.js](https://github.com/cyrfer/cli-db/blob/v0.3.5/src/commands/mongo.js)_
+_See code: [src/commands/mongo.js](https://github.com/cyrfer/cli-db/blob/v0.3.6/src/commands/mongo.js)_
 <!-- commandsstop -->
