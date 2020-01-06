@@ -44,7 +44,7 @@ class MongoCommand extends Command {
     }
     const mArgs = methodArgs[flags.method].map(a => parsed[a])
 
-    const credentials = new AWS.SharedIniFileCredentials({profile: flags.awsProfile})
+    const credentials = flags.awsProfile && new AWS.SharedIniFileCredentials({profile: flags.awsProfile})
     const secrets = flags.awsRegion && new AWS.SecretsManager({region: flags.awsRegion, credentials})
     const client = await setupDataStore({url: flags.url, secretUrl: flags.awsSecretUrl}, {secrets})
 
