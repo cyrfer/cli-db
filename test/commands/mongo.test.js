@@ -1,9 +1,9 @@
 /* eslint-disable array-element-newline */
 const {expect, test} = require('@oclif/test')
 
-const testConfig = {
-  awsProfile: process.env.AWS_PROFILE,
-}
+// const testConfig = {
+//   awsProfile: process.env.AWS_PROFILE,
+// }
 
 describe('mongo', () => {
   test
@@ -58,9 +58,9 @@ describe('mongo', () => {
   .stdout()
   .command([
     'mongo',
-    '-l', testConfig.awsProfile || 'your-aws-profile-name-here',
-    '-s', 'test-mongo-local',
+    // '-l', testConfig.awsProfile || 'your-aws-profile-name-here',
     '-r', 'us-west-2',
+    '-s', 'test-mongo-local',
     '-b', 'test',
     '-c', 'todo',
     '-m', 'findOne',

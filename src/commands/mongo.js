@@ -159,7 +159,7 @@ MongoCommand.flags = {
   awsRegion: flags.string({
     char: 'r',
     description: 'aws region containing secrets',
-    env: 'AWS_SECRET_MONGO_CONNECTION_URL',
+    env: 'AWS_DEFAULT_REGION',
     required: false,
     exclusive: ['url'],
   }),
@@ -169,7 +169,7 @@ MongoCommand.flags = {
     description: 'aws secret containing mongo connection string',
     env: 'AWS_SECRET_MONGO_CONNECTION_URL',
     required: false,
-    dependsOn: ['awsRegion', 'awsProfile'],
+    dependsOn: ['awsRegion'],
     exclusive: ['url'],
   }),
 
