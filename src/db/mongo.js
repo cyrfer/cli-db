@@ -20,7 +20,7 @@ exports.setupDataStore = async (options, {secrets} = {}) => {
     const secretString = await fetchSecret(options.secretUrl, secrets)
     // console.debug('about to parse secret')
     const parsed = JSON.parse(secretString)
-    url = `mongodb://${parsed.url}`
+    url = parsed.url
   }
   // console.debug('creating MongoClient')
   const client = new MongoClient(url, {useNewUrlParser: true, useUnifiedTopology: true})
