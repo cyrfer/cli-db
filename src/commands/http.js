@@ -63,8 +63,7 @@ class HttpCommand extends Command {
     }
 
     return got(req).then(resp => {
-      // TODO: support pipe
-      console.log(resp.body)
+      this.log(resp.body)
     })
   }
 }
