@@ -85,14 +85,14 @@ const parseHeaders = input => {
 
 HttpCommand.flags = {
   method: flags.string({char: 'X', default: 'GET', required: true, description: 'http method to use: GET, POST, PUT,...'}),
-  headers: flags.string({char: 'H', required: false, multiple: true, default: [], parse: parseHeaders, description: 'JSON map of headers to use in the request'}),
+  headers: flags.string({char: 'H', required: false, multiple: true, parse: parseHeaders, description: 'JSON map of headers to use in the request'}),
   data: flags.string({char: 'd', required: false, dependsOn: [], description: 'the payload for write methods'}),
   'aws-profile': flags.string({char: 'p', required: false, description: 'profile name for AWS CLI and SDK', dependsOn: ['aws-region', 'aws-service']}),
   'aws-region': flags.string({char: 'r', required: false, env: 'AWS_REGION', description: 'AWS region of service'}),
-  'aws-service': flags.string({char: 's', required: false, default: 'execute-api', description: 'AWS service'}),
+  'aws-service': flags.string({char: 's', required: false, default: 'execute-api', description: 'AWS service, e.g. appsync'}),
   'aws-secret-access-key': flags.string({char: 'k', required: false, description: 'secret key for AWS signing', dependsOn: ['aws-region', 'aws-service']}),
   'aws-access-key-id': flags.string({char: 'i', required: false, description: 'access key id for AWS signing', dependsOn: ['aws-region', 'aws-service']}),
-  'aws-session-token': flags.string({char: 't', required: false, description: 'access key id for AWS signing', dependsOn: ['aws-access-key-id', 'aws-secret-access-key']}),
+  'aws-session-token': flags.string({char: 't', required: false, description: 'session token for AWS signing', dependsOn: ['aws-access-key-id', 'aws-secret-access-key']}),
 }
 
 module.exports = HttpCommand
