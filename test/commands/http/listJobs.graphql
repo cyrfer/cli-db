@@ -1,0 +1,12 @@
+query ListJobs {
+  listJobs {
+    items {
+      id
+      status
+      type
+      params {
+        jobRoleArn
+      }
+    }
+  }
+}

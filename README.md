@@ -19,7 +19,7 @@ $ npm install -g cli-db
 $ cli-db COMMAND
 running command...
 $ cli-db (-v|--version|version)
-cli-db/0.4.0 darwin-x64 node-v12.3.1
+cli-db/0.4.0 darwin-x64 node-v12.16.2
 $ cli-db --help [COMMAND]
 USAGE
   $ cli-db COMMAND
@@ -30,6 +30,7 @@ USAGE
 <!-- commands -->
 * [`cli-db ffprobe INPUT_FILE`](#cli-db-ffprobe-input_file)
 * [`cli-db help [COMMAND]`](#cli-db-help-command)
+* [`cli-db http URL`](#cli-db-http-url)
 * [`cli-db mongo`](#cli-db-mongo)
 
 ## `cli-db ffprobe INPUT_FILE`
@@ -78,6 +79,31 @@ OPTIONS
 ```
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.3/src/commands/help.ts)_
+
+## `cli-db http URL`
+
+make http requests
+
+```
+USAGE
+  $ cli-db http URL
+
+ARGUMENTS
+  URL  the complete url, i.e. fully qualified domain name
+
+OPTIONS
+  -H, --headers=headers                              [default: ] JSON map of headers to use in the request
+  -X, --method=method                                (required) [default: GET] http method to use: GET, POST, PUT,...
+  -d, --data=data                                    the payload for write methods
+  -i, --aws-access-key-id=aws-access-key-id          access key id for AWS signing
+  -k, --aws-secret-access-key=aws-secret-access-key  secret key for AWS signing
+  -p, --aws-profile=aws-profile                      profile name for AWS CLI and SDK
+  -r, --aws-region=aws-region                        AWS region of service
+  -s, --aws-service=aws-service                      [default: execute-api] AWS service
+  -t, --aws-session-token=aws-session-token          access key id for AWS signing
+```
+
+_See code: [src/commands/http.js](https://github.com/cyrfer/cli-db/blob/v0.4.0/src/commands/http.js)_
 
 ## `cli-db mongo`
 
