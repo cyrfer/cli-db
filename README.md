@@ -19,7 +19,7 @@ $ npm install -g cli-db
 $ cli-db COMMAND
 running command...
 $ cli-db (-v|--version|version)
-cli-db/0.4.1 darwin-x64 node-v12.16.2
+cli-db/0.4.2 darwin-x64 node-v12.16.2
 $ cli-db --help [COMMAND]
 USAGE
   $ cli-db COMMAND
@@ -61,7 +61,7 @@ EXAMPLE
   cli-db ffprobe $(aws s3 presign $AFILE --expires-in $SECONDS --profile YOUR-AWS-PROFILE) | jq '.'
 ```
 
-_See code: [src/commands/ffprobe.js](https://github.com/cyrfer/cli-db/blob/v0.4.1/src/commands/ffprobe.js)_
+_See code: [src/commands/ffprobe.js](https://github.com/cyrfer/cli-db/blob/v0.4.2/src/commands/ffprobe.js)_
 
 ## `cli-db help [COMMAND]`
 
@@ -92,18 +92,18 @@ ARGUMENTS
   URL  the complete url, i.e. fully qualified domain name
 
 OPTIONS
-  -H, --headers=headers                              [default: ] JSON map of headers to use in the request
+  -H, --headers=headers                              JSON map of headers to use in the request
   -X, --method=method                                (required) [default: GET] http method to use: GET, POST, PUT,...
   -d, --data=data                                    the payload for write methods
   -i, --aws-access-key-id=aws-access-key-id          access key id for AWS signing
   -k, --aws-secret-access-key=aws-secret-access-key  secret key for AWS signing
   -p, --aws-profile=aws-profile                      profile name for AWS CLI and SDK
   -r, --aws-region=aws-region                        AWS region of service
-  -s, --aws-service=aws-service                      [default: execute-api] AWS service
-  -t, --aws-session-token=aws-session-token          access key id for AWS signing
+  -s, --aws-service=aws-service                      [default: execute-api] AWS service, e.g. appsync
+  -t, --aws-session-token=aws-session-token          session token for AWS signing
 ```
 
-_See code: [src/commands/http.js](https://github.com/cyrfer/cli-db/blob/v0.4.1/src/commands/http.js)_
+_See code: [src/commands/http.js](https://github.com/cyrfer/cli-db/blob/v0.4.2/src/commands/http.js)_
 
 ## `cli-db mongo`
 
@@ -157,5 +157,5 @@ EXAMPLES
       -q '{"id": "123"}'
 ```
 
-_See code: [src/commands/mongo.js](https://github.com/cyrfer/cli-db/blob/v0.4.1/src/commands/mongo.js)_
+_See code: [src/commands/mongo.js](https://github.com/cyrfer/cli-db/blob/v0.4.2/src/commands/mongo.js)_
 <!-- commandsstop -->
