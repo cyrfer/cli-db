@@ -10,7 +10,7 @@ describe('mongo', () => {
   .stdout()
   .command([
     'mongo',
-    '-u', 'mongodb://localhost:27018',
+    '-u', process.env.MONGO_URI || 'mongodb://localhost:27018',
     '-b', 'test',
     '-c', 'todo',
     '-m', 'updateOne',
@@ -26,7 +26,7 @@ describe('mongo', () => {
   .stdout()
   .command([
     'mongo',
-    '-u', 'mongodb://localhost:27018',
+    '-u', process.env.MONGO_URI || 'mongodb://localhost:27018',
     '-b', 'test',
     '-c', 'todo',
     '-m', 'updateOne',
@@ -44,11 +44,11 @@ describe('mongo', () => {
   .stdout()
   .command([
     'mongo',
-    '-u', 'mongodb://localhost:27018',
-    '-b', 'test',
-    '-c', 'todo',
+    '-u', process.env.MONGO_URI || 'mongodb://localhost:27018',
+    '-b', process.env.MONGO_DB || 'test',
+    '-c', process.env.MONGO_COLLECTION || 'todo',
     '-m', 'findOne',
-    '-q', '{"id": "123"}',
+    '-q', `{"id": "${process.env.RECORD_ID || '123'}"}`,
   ])
   .it('mongo read by id', ctx => {
     expect(ctx.stdout).to.contain('toothpaste')
