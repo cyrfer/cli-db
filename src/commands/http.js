@@ -64,6 +64,8 @@ class HttpCommand extends Command {
 
     return got(req).then(resp => {
       this.log(resp.body)
+    }).catch(error => {
+      this.error(error, {exit: 2})
     })
   }
 }
