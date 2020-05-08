@@ -19,7 +19,7 @@ $ npm install -g cli-db
 $ cli-db COMMAND
 running command...
 $ cli-db (-v|--version|version)
-cli-db/0.4.2 darwin-x64 node-v12.16.2
+cli-db/0.4.3 darwin-x64 node-v12.16.2
 $ cli-db --help [COMMAND]
 USAGE
   $ cli-db COMMAND
@@ -61,7 +61,7 @@ EXAMPLE
   cli-db ffprobe $(aws s3 presign $AFILE --expires-in $SECONDS --profile YOUR-AWS-PROFILE) | jq '.'
 ```
 
-_See code: [src/commands/ffprobe.js](https://github.com/cyrfer/cli-db/blob/v0.4.2/src/commands/ffprobe.js)_
+_See code: [src/commands/ffprobe.js](https://github.com/cyrfer/cli-db/blob/v0.4.3/src/commands/ffprobe.js)_
 
 ## `cli-db help [COMMAND]`
 
@@ -103,7 +103,7 @@ OPTIONS
   -t, --aws-session-token=aws-session-token          session token for AWS signing
 ```
 
-_See code: [src/commands/http.js](https://github.com/cyrfer/cli-db/blob/v0.4.2/src/commands/http.js)_
+_See code: [src/commands/http.js](https://github.com/cyrfer/cli-db/blob/v0.4.3/src/commands/http.js)_
 
 ## `cli-db mongo`
 
@@ -157,5 +157,5 @@ EXAMPLES
       -q '{"id": "123"}'
 ```
 
-_See code: [src/commands/mongo.js](https://github.com/cyrfer/cli-db/blob/v0.4.2/src/commands/mongo.js)_
+_See code: [src/commands/mongo.js](https://github.com/cyrfer/cli-db/blob/v0.4.3/src/commands/mongo.js)_
 <!-- commandsstop -->
